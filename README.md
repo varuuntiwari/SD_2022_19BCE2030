@@ -1,4 +1,5 @@
 # Minimalistic Chess
+Start game by typing `python play.py`.
 ## Completed till level 1
 This command line game is made using Python. A 5x5 board is used which has two sides. The players A and B initialize their characters' positions on their respective sides, following which the game starts unless a winner is found.
 ```python
