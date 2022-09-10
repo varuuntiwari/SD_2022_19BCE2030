@@ -1,5 +1,6 @@
-import inquirer
-from boardFunc import *
+import re
+from boardFunc import showBoard
+from playerFunc import makeMove
 
 chessBoard = [
     ['-', '-', '-', '-', '-'],
@@ -25,18 +26,31 @@ def Welcome():
     
     print("\nEnter the character positions in the format {(character_name)(character_number)}, for example {P2}\n")
 
-def initBoard(board):
-    print("1st player\nEnter 5 characters' positions in a line(left to right):")
+def initBoard():
+    global chessBoard
+    # Taking input of Player A
+    print("Player A, enter 5 characters' positions in a line(left to right):")
     checkInput = [x for x in input().split()]
     if len(checkInput) == 5:
-        board[0] = checkInput
+        chessBoard[0] = ["A-"+s for s in checkInput]
     
-    print("2nd player\nEnter 5 characters' positions in a line(left to right):")
+    # Taking input of Player B
+    print("Player B, enter 5 characters' positions in a line(left to right):")
     checkInput = [x for x in input().split()]
     if len(checkInput) == 5:
-        board[4] = checkInput
+        chessBoard[4] = ["B-"+s for s in checkInput]
+
 
 if __name__ == "__main__":
     Welcome()
-    initBoard(chessBoard)
+    initBoard()
     showBoard(chessBoard)
+    winner = ""
+    currentTurn = "A"
+    while(winner == ""):
+        # Prompt the user for a move
+        chessBoard, winner = makeMove(chessBoard, currentTurn)
+        # Pass the move to other player
+        currentTurn = "A" if currentTurn == "B" else "B"
+    
+    print(f"The winner is {winner}") 
